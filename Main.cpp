@@ -6,10 +6,10 @@ char key[256];//キー取得用配列
 // プログラムは WinMain から始まります
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)
 {
-	SetGraphMode(500,700, NULL);
+	SetGraphMode(MapWidth,MapHeight, NULL);
 	ChangeWindowMode(TRUE);//ウィンドウモードに変更
 
-	SetWindowSize(500, 700);//ウィンドウサイズ変更
+	SetWindowSize(MapWidth,MapHeight);//ウィンドウサイズ変更
 	
 	if (DxLib_Init() == -1)		// ＤＸライブラリ初期化処理
 	{
