@@ -1,7 +1,6 @@
 #include "pch.h"
 #include "Player.h"
 
-
 PLAYER::PLAYER() {
 	/*‰æ‘œ“Ç‚İ‚İ*/
 	if (-1 == LoadDivGraph("Img/Player/Player.png", 3, 3, 1, 50, 60, PlayerImg)) {
@@ -47,6 +46,22 @@ void PLAYER::Move() {
 	if (key[KEY_INPUT_LEFT] == 1) { Result = 1; }
 	else if (key[KEY_INPUT_RIGHT] == 1) { Result = 2; }
 	else { Result = 0; }
+
+
+	/*ƒvƒŒƒCƒ„[‚ÌˆÚ“®§ŒÀ*/
+	if (X <= 10) {
+		X = PLAYER_MOVE_MARGIN;
+	}
+	else if (X>=490-Width) {
+		X = 490-Width;
+	}
+	if (Y <= 200) {
+		Y = 200;
+	}
+	else if (Y >= 690-Height) {
+		Y = 690 - Height;
+	}
+	
 }
 
 /*•`‰æ*/

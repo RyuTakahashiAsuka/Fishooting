@@ -12,7 +12,7 @@ private:
 	int ImgCount;
 
 	/*画像*/
-	int ix, iy, Result;//添字
+	int Result;//画像配列の要素
 	int Width, Height;//画像幅
 
 	int PlayerImg[3];//画像のグラフィックハンドル格納配列

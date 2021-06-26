@@ -7,5 +7,7 @@ extern char key[256];
 #define MSG(m) {\
 	MessageBox(NULL,m,"メッセージ",MB_OK);}
 
-//プレイヤーの歩くスピード
-#define PLAYER_WORK_SPEED 4;
+/*プレイヤー*/
+#define PLAYER_MOVE_MARGIN 10;//プレイヤーの移動制限用　幅
+
+#define PLAYER_WORK_SPEED 6;//プレイヤーの移動速度

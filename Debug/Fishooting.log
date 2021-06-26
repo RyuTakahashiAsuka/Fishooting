@@ -1,2 +1,6 @@
-﻿  Player.cpp
+﻿  pch.cpp
+  Main.cpp
+  Operation.cpp
+  Player.cpp
+  コードを生成中...
   Fishooting.vcxproj -> C:\Users\shiry\Desktop\制作\Fishooting\Debug\Fishooting.exe
