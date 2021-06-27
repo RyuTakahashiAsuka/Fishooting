@@ -18,7 +18,10 @@ ENEMY::ENEMY() {
 	Out_E = 420;
 	E_count = 0;
 
+	Enemy_Dead = false;
 	Enemy_flag = false;
+
+	
 }
 
 void ENEMY::Move() {
@@ -28,13 +31,14 @@ void ENEMY::Move() {
 	else if (Game_Count > Out_E) {
 		y -= 2;
 		if (y < -40) {
-			Enemy_flag = true;
+			Enemy_Dead = true;
 		}
 	}
 }
 
 void ENEMY::Draw() {
-	if (!Enemy_flag) {
+
+	if (!Enemy_Dead) {
 		DrawGraph(x, y, EnemyImg[0], TRUE);
 	}
 }
@@ -42,7 +46,9 @@ void ENEMY::Draw() {
 bool ENEMY::All() {
 	Move();
 	Draw();
+
 	E_count++;
 
 	return Enemy_flag;
 }
+

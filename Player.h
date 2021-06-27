@@ -18,8 +18,10 @@ private:
 	int PlayerImg[3];//画像のグラフィックハンドル格納配列
 
 	/*弾*/
-	P_SHOT shot[P_SHOT_NUM];
-	int S_count;//弾を発射する感覚用変数
+	P_SHOT P_shot[P_SHOT_NUM];
+	int Shot_count;//弾を発射する間隔用変数
+
+	 
 private:
 	void Shot();//弾
 	void Move();//移動

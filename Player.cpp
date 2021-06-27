@@ -17,20 +17,22 @@ PLAYER::PLAYER() {
 	Life = true;//生きているかどうか
 
 	/*弾*/
-	memset(shot, 0, sizeof(shot));//初期化
-	//画像読み込み
-	int S_Img = LoadGraph("Img/Player/Player_Shot.png");
-	int w, h;//画像幅、高さ
-	GetGraphSize(S_Img, &w, &h);//画像サイズを調べそれぞれ格納
-	
-	//弾数の分だけ全てフラグをfalseにして画像やサイズを入れる
+	memset(P_shot, 0, sizeof(P_shot));//初期化
+
+	int ShotImg = LoadGraph("Img/Player/Player_Shot.png");
+	int width, height;
+	GetGraphSize(ShotImg, &width, &height);//画像サイズを調べ格納
+
+	//for分で全ての弾のフラグをfalseに、画像やサイズを代入
 	for (int i = 0; i < P_SHOT_NUM; ++i) 
 	{
-		shot[i].ShotFlag = false;
-		shot[i].ShotImg = S_Img;
-		shot[i].width = w;
-		shot[i].height = h;
+		P_shot[i].P_NowShotFlag = false;
+		P_shot[i].P_ShotImg = ShotImg;
+		P_shot[i].ImgWidth = width;
+		P_shot[i].ImgHeight = height;
 	}
+
+	Shot_count = 0;
 }
 /*プレイヤーの移動*/
 void PLAYER::Move() {
@@ -64,7 +66,7 @@ void PLAYER::Move() {
 
 	/*プレイヤーの移動制限*/
 	if (X <= 10) {
-		X = PLAYER_MOVE_MARGIN;
+		X = MARGIN;
 	}
 	else if (X>=490-Width) {
 		X = 490-Width;
@@ -78,42 +80,39 @@ void PLAYER::Move() {
 	
 }
 
+/*弾*/
 void PLAYER::Shot() {
-	//スペースキーが押されてcountを6で割って0の時
-	if (key[KEY_INPUT_SPACE] == 1 && S_count % 6 == 0) {
-		//弾数の数だけ
-		for (int i = 0; i < P_SHOT_NUM; i++) {
-			//フラグがfalseの時trueにして弾の位置をプレイヤーの座標に
-			if (shot[i].ShotFlag == false) {
-				shot[i].ShotFlag = true;
-				shot[i].Shotx = X;
-				shot[i].Shoty = Y;
+	if (key[KEY_INPUT_Z] == 1 && Shot_count % 6 == 0) {
+		for (int i = 0; i < P_SHOT_NUM; ++i) {
+			if (P_shot[i].P_NowShotFlag == false) {
+				P_shot[i].P_NowShotFlag = true;
+				P_shot[i].P_ShotX = X;
+				P_shot[i].P_ShotY = Y;
+				break;
 			}
 		}
 	}
-	
-	//弾の移動
-	//弾の数だけ
-	for (int i = 0; i < P_SHOT_NUM; i++) {
-		//発射している弾のみ
-		if (shot[i].ShotFlag) {
-			shot[i].Shoty -= SHOT_SPEED;//弾の移動（画面上は上に向かって）
-			//画面外に出たら消去　フラグを戻す
-			if (shot[i].Shoty < -10) {
-				shot[i].ShotFlag = false;
+
+	for (int i = 0; i < P_SHOT_NUM; ++i) {
+		if (P_shot[i].P_NowShotFlag == true) {
+			P_shot[i].P_ShotY -= SHOT_SPEED;
+
+			if (P_shot[i].P_ShotY < -10) {
+				P_shot[i].P_NowShotFlag = false;
 			}
 		}
 	}
 }
+
 /*描画*/
 void PLAYER::Draw() {
 	//弾の描画
-	for (int i = 0; i < P_SHOT_NUM; i++) {
-		if (shot[i].ShotFlag) {
-			DrawGraph(shot[i].Shotx -Width/2, shot[i].Shoty -Height/2,
-				shot[i].ShotImg, TRUE);
+	for (int i = 0; i < P_SHOT_NUM; ++i) {
+		if (P_shot[i].P_NowShotFlag == true) {
+			DrawGraph(P_shot[i].P_ShotX - Width/2, P_shot[i].P_ShotY - Height/2, P_shot[i].P_ShotImg, TRUE);
 		}
 	}
+
 	//プレイヤーの描画（生きている状態なら）
 	if (Life) {
 		DrawGraph(X - Width / 2, Y - Height / 2, PlayerImg[Result], TRUE);
@@ -123,9 +122,9 @@ void PLAYER::Draw() {
 }
 //All関数
 void PLAYER::All() {
-	Shot();
 	Move();
+	Shot();
 	Draw();
 	
-	S_count++;
+	++Shot_count;
 }
