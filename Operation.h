@@ -10,7 +10,7 @@ private:
 	
 	PLAYER* player;//プレイヤークラスのポインタの作成
 
-	ENEMY* enemy;
+	ENEMY* enemy[ENEMY_NUM];
 public:
 	OPERATION();
 	~OPERATION();
