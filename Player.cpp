@@ -9,13 +9,14 @@ PLAYER::PLAYER() {
 	}
 	Width = 29, Height = 40;//画像幅
 
-	X = 180, Y = 400;//座標
+	X = PLAYER_INITX, Y = PLAYER_INITY;//座標
 	move = 1.0f;//移動係数
 	ImgCount = 0;//画像アニメーション用変数
 	Result = 0;//現在のアニメーション番号格納変数
 
-	Life = true;//生きているかどうか
-
+	//プレイヤーのライフ
+	life = PLAYER_LIFE;
+	dcount = 0;
 	/*弾*/
 	memset(P_shot, 0, sizeof(P_shot));//初期化
 
@@ -33,6 +34,8 @@ PLAYER::PLAYER() {
 	}
 
 	Shot_count = 0;
+	damageflag = false;
+	endflag = false;
 }
 /*プレイヤーの移動*/
 void PLAYER::Move() {
@@ -82,13 +85,15 @@ void PLAYER::Move() {
 
 /*弾*/
 void PLAYER::Shot() {
-	if (key[KEY_INPUT_Z] == 1 && Shot_count % 6 == 0) {
-		for (int i = 0; i < P_SHOT_NUM; ++i) {
-			if (P_shot[i].P_NowShotFlag == false) {
-				P_shot[i].P_NowShotFlag = true;
-				P_shot[i].P_ShotX = X;
-				P_shot[i].P_ShotY = Y;
-				break;
+	if (!damageflag) {
+		if (key[KEY_INPUT_Z] == 1 && Shot_count % 6 == 0) {
+			for (int i = 0; i < P_SHOT_NUM; ++i) {
+				if (P_shot[i].P_NowShotFlag == false) {
+					P_shot[i].P_NowShotFlag = true;
+					P_shot[i].P_ShotX = X;
+					P_shot[i].P_ShotY = Y;
+					break;
+				}
 			}
 		}
 	}
@@ -114,13 +119,41 @@ void PLAYER::Draw() {
 	}
 
 	//プレイヤーの描画（生きている状態なら）
-	if (Life) {
+	if (damageflag==true) {
+		if (dcount > 20) {
+			if (dcount % 2 == 0) {
+				SetDrawBlendMode(DX_BLENDMODE_ALPHA, 140);
+				DrawGraph(PLAYER_INITX - Width / 2, PLAYER_INITY - Height / 2 + 60 - (dcount - 20), PlayerImg[0], TRUE);
+				SetDrawBlendMode(DX_BLENDMODE_NOBLEND, 0);
+			}
+			else {
+				DrawGraph(PLAYER_INITX - Width / 2, PLAYER_INITY - Height / 2 + 60 - (dcount - 20), PlayerImg[0], TRUE);
+			}
+		}
+		++dcount;
+		if (dcount == 80) {
+			damageflag = false;
+			dcount = 0;
+			//座標を初期値に戻す
+			X = PLAYER_INITX;
+			Y = PLAYER_INITY;
+			//上向きの画像にする
+			Result = 0;
+		}
+	}
+	else {
 		DrawGraph(X - Width / 2, Y - Height / 2, PlayerImg[Result], TRUE);
 	}
 
 	
 }
 
+void PLAYER::GetPosition(double* x, double* y)
+{
+	*x = this->X;
+	*y = this->Y;
+
+}
 
 bool PLAYER::GetShotPosition(int index, double* x, double* y)
 {
@@ -138,12 +171,27 @@ void PLAYER::SetShotFlag(int index, bool flag)
 {
 	P_shot[index].P_NowShotFlag = flag;
 }
+void PLAYER::SetDamageFlag()
+{
+	damageflag = true;
+	//ライフを減らす
+	--life;
+}
+bool PLAYER::GetDamageFlag()
+{
+	return damageflag;
+}
 
 //All関数
 void PLAYER::All() {
-	Move();
+	if (!damageflag) {
+		Move();
+	}
 	Shot();
 	Draw();
-	
+
+	int Cr = GetColor(0, 0, 0);
+	DrawFormatString(1, 1, Cr, "%d",dcount);
+
 	++Shot_count;
 }

@@ -3,7 +3,10 @@ class PLAYER
 {
 private:
 	/*数値類*/
-	bool Life;//プレイヤーの生死判定
+	//プレイヤーのライフ
+	int life;
+	bool damageflag;
+	bool endflag;
 
 	double X, Y;//プレイヤーの座標
 
@@ -11,6 +14,8 @@ private:
 
 	int ImgCount;//画像アニメーション用
 
+	//ダメージ中のカウント
+	int dcount;
 	/*画像*/
 	int Result;//画像配列の要素
 	int Width, Height;//画像幅
@@ -28,8 +33,11 @@ private:
 	void Draw();//描画
 public:
 	PLAYER();
+	void GetPosition(double* x, double* y);
 	bool GetShotPosition(int index, double* x, double* y);
 	void SetShotFlag(int index, bool flag);
+	void SetDamageFlag();
+	bool GetDamageFlag();
 	void All();
 };
 

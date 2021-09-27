@@ -72,8 +72,11 @@ out:
 	}
 }
 
-void OPERATION::EnemyCollisionAll() {
+void OPERATION::CollisionAll() {
 	double px, py, ex, ey;
+
+	bool tempflag = false;
+
 	//操作キャラの弾と敵との当たり判定
 	for (int i = 0; i < P_SHOT_NUM; ++i) {
 		if (player->GetShotPosition(i, &px, &py)) {
@@ -92,6 +95,35 @@ void OPERATION::EnemyCollisionAll() {
 			}
 		}
 	}
+
+	//敵の弾と操作キャラとの当たり判定
+	//プレイヤーが生きてれば
+	if (!player->GetDamageFlag()) {
+		player->GetPosition(&px, &py);
+		for (int i = 0; i < ENEMY_NUM; ++i) {
+			if (enemy[i] != NULL) {
+				for (int s = 0; s < ENEMY_SHOT_NUM; ++s) {
+					//弾フラグが立っていればtrueを返す
+					if (enemy[i]->GetShotPosition(s, &ex, &ey)) {
+						//弾によって当たり判定が違うのでswitch文で分岐
+							//当たってれば
+							if (Collision(PLAYER_COLLISION, ESHOT0_COLLISION, px, ex, py, ey)) {
+								tempflag = true;
+							}
+						if (tempflag) {
+							//操作キャラのdamageflagを立てる
+							player->SetDamageFlag();
+							//弾を消す
+							enemy[i]->SetShotFlag(s, false);
+							//一時フラグを戻す
+							tempflag = false;
+						}
+					}
+				}
+			}
+		}
+	}
+
 }
 
 
@@ -133,7 +165,7 @@ void OPERATION::All() {
 		}
 	}
 
-	EnemyCollisionAll();
+	CollisionAll();
 
 	++Game_Count;
 }

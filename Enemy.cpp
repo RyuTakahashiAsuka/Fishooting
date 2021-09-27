@@ -139,6 +139,11 @@ bool ENEMY::GetShotPosition(int index, double* x, double* y)
 	}
 }
 
+void ENEMY::SetShotFlag(int index, bool flag)
+{
+	E_shot[index].E_NowShotFlag = flag;
+}
+
 void ENEMY::SetDeadFlag()
 {
 	Enemy_DeadFlag = true;

@@ -19,8 +19,13 @@ extern int Game_Count;
 #define SCROLL_SPEED 2//背景スクロールスピード
 
 /*プレイヤー*/
-
+//プレイヤーのライフ初期値
+#define PLAYER_LIFE 5
 #define PLAYER_WORK_SPEED 6//プレイヤーの移動速度
+
+//プレイヤーの初期位置
+#define PLAYER_INITX 250
+#define PLAYER_INITY 700
 
 /*プレイヤーの弾*/
 #define P_SHOT_NUM 20 //プレイヤーの弾数
@@ -69,6 +74,4 @@ struct ENEMYDATA {
 #define ENEMY1_COLLISION 14
 
 #define PSHOT_COLLISION 3
-#define ESHOT1_COLLISION 12
-#define ESHOT2_COLLISION 3
-#define ESHOT3_COLLISION 2
+#define ESHOT0_COLLISION 12

@@ -37,6 +37,7 @@ public:
 
 	void GetPosition(double* x, double* y);
 	bool GetShotPosition(int index, double* x, double* y);
+	void SetShotFlag(int index, bool flag);
 	void SetDeadFlag();
 	bool GetDeadFlag();
 	ENEMY(int E_Type, int E_shot_Type, int E_Move_Pattern, int E_shot_Pattern, int InTime_E, int StopTime_E,

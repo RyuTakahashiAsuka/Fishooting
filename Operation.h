@@ -14,7 +14,7 @@ private:
 
 	bool Collision(double c1,double c2, double cx1, double cx2, double cy1, double cy2);
 		//â~å`ÇPÇÃîºåa,â~å`ÇQÇÃîºåaÅAâ~å`ÇPÇÃxç¿ïWÅAâ~å`ÇQÇÃxç¿ïWÅAâ~å`ÇPÇÃyç¿ïWÅAâ~å`ÇQÇÃyç¿ïW
-	void EnemyCollisionAll();
+	void CollisionAll();
 public:
 	OPERATION();
 	~OPERATION();
