@@ -63,3 +63,12 @@ struct ENEMYDATA {
 	int Speed;
 	int HP;
 };
+
+//“–‚½‚è”»’è—p”¼Œa’è‹`
+#define PLAYER_COLLISION 6
+#define ENEMY1_COLLISION 14
+
+#define PSHOT_COLLISION 3
+#define ESHOT1_COLLISION 12
+#define ESHOT2_COLLISION 3
+#define ESHOT3_COLLISION 2

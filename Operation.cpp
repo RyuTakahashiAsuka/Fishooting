@@ -71,6 +71,45 @@ out:
 			data[i].StopTime_E, data[i].E_shot_Time,data[i].OutTime_E, data[i].x, data[i].y, data[i].Speed, data[i].HP);
 	}
 }
+
+void OPERATION::EnemyCollisionAll() {
+	double px, py, ex, ey;
+	//操作キャラの弾と敵との当たり判定
+	for (int i = 0; i < P_SHOT_NUM; ++i) {
+		if (player->GetShotPosition(i, &px, &py)) {
+			for (int s = 0; s < ENEMY_NUM; ++s) {
+				//敵クラスのポインタがNULLじゃない、かつdeadflagがfalse(死んでない＆帰還してない)
+				if (enemy[s] != NULL && !enemy[s]->GetDeadFlag()) {
+					enemy[s]->GetPosition(&ex, &ey);
+					//当たり判定
+					if (Collision(PSHOT_COLLISION, ENEMY1_COLLISION, px, ex, py, ey)) {
+						//当たっていれば、deadflagを立てる
+						enemy[s]->SetDeadFlag();
+						//当たった弾のフラグを戻す
+						player->SetShotFlag(i, false);
+					}
+				}
+			}
+		}
+	}
+}
+
+
+bool OPERATION::Collision(double c1, double c2, double cx1, double cx2, double cy1, double cy2) {
+
+	double hlength = c1 + c2;
+	double xlength = cx1 - cx2;
+	double ylength = cy1 - cy2;
+
+	if (hlength * hlength >= xlength * xlength + ylength * ylength) {
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+
 OPERATION::~OPERATION() {
 	delete player;//プレイヤークラスの解放
 	delete back;
@@ -93,6 +132,8 @@ void OPERATION::All() {
 			}
 		}
 	}
+
+	EnemyCollisionAll();
 
 	++Game_Count;
 }

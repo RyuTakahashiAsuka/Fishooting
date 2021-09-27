@@ -61,6 +61,7 @@ void ENEMY::Shot() {
 		E_shotflag = true;
 	}
 	if (E_shotflag) {
+		if(!Enemy_DeadFlag){
 		switch (E_shot_Pattern)
 		{
 		case 0:
@@ -76,6 +77,7 @@ void ENEMY::Shot() {
 			}
 			break;
 		}
+	}
 		int s = 0;//フラグが立っている弾の数
 		//フラグが立っているだけ移動を行う
 		for (int i = 0; i < ENEMY_SHOT_NUM; ++i) {
@@ -118,6 +120,33 @@ void ENEMY::Draw() {
 	if (!Enemy_DeadFlag) {
 		DrawGraph(x, y, EnemyImg[0], TRUE);
 	}
+}
+
+void ENEMY::GetPosition(double* x, double* y)
+{
+	*x = this->x;
+	*y = this->y;
+}
+bool ENEMY::GetShotPosition(int index, double* x, double* y)
+{
+	if (E_shot[index].E_NowShotFlag) {
+		*x = E_shot[index].E_ShotX;
+		*y = E_shot[index].E_ShotY;
+		return true;
+	}
+	else {
+		return false;
+	}
+}
+
+void ENEMY::SetDeadFlag()
+{
+	Enemy_DeadFlag = true;
+}
+
+bool ENEMY::GetDeadFlag()
+{
+	return Enemy_DeadFlag;
 }
 
 bool ENEMY::All() {

@@ -28,6 +28,8 @@ private:
 	void Draw();//•`‰æ
 public:
 	PLAYER();
+	bool GetShotPosition(int index, double* x, double* y);
+	void SetShotFlag(int index, bool flag);
 	void All();
 };
 

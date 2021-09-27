@@ -120,6 +120,25 @@ void PLAYER::Draw() {
 
 	
 }
+
+
+bool PLAYER::GetShotPosition(int index, double* x, double* y)
+{
+	if (P_shot[index].P_NowShotFlag) {
+		*x = P_shot[index].P_ShotX;
+		*y = P_shot[index].P_ShotY;
+		return true;
+	}
+	else {
+		return false;
+	}
+
+}
+void PLAYER::SetShotFlag(int index, bool flag)
+{
+	P_shot[index].P_NowShotFlag = flag;
+}
+
 //Allä÷êî
 void PLAYER::All() {
 	Move();
