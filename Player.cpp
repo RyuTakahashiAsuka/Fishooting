@@ -176,6 +176,10 @@ void PLAYER::SetDamageFlag()
 	damageflag = true;
 	//ƒ‰ƒCƒt‚ðŒ¸‚ç‚·
 	--life;
+	if (life == 0) {
+		ClearDrawScreen();
+		SceneCount = 2;
+	}
 }
 bool PLAYER::GetDamageFlag()
 {
@@ -189,9 +193,5 @@ void PLAYER::All() {
 	}
 	Shot();
 	Draw();
-
-	int Cr = GetColor(0, 0, 0);
-	DrawFormatString(1, 1, Cr, "%d",dcount);
-
 	++Shot_count;
 }

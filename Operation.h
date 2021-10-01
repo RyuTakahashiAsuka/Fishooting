@@ -1,7 +1,9 @@
 #include"BackGround.h"
 #include"Player.h"
 #include"Enemy.h"
-
+#include"TitleScene.h"
+#include"GAMEOVER.h"
+#include"GAMECLEAR.h"
 
 class OPERATION
 {
@@ -12,9 +14,17 @@ private:
 
 	ENEMY* enemy[ENEMY_NUM];
 
+	TitleScene* titleScene;
+	GAMEOVER* GameOver;
+	GAMECLEAR* GameClear;
+	
+	int EnemyNum;
+
 	bool Collision(double c1,double c2, double cx1, double cx2, double cy1, double cy2);
 		//â~å`ÇPÇÃîºåa,â~å`ÇQÇÃîºåaÅAâ~å`ÇPÇÃxç¿ïWÅAâ~å`ÇQÇÃxç¿ïWÅAâ~å`ÇPÇÃyç¿ïWÅAâ~å`ÇQÇÃyç¿ïW
 	void CollisionAll();
+
+
 public:
 	OPERATION();
 	~OPERATION();

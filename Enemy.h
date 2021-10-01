@@ -15,6 +15,7 @@ private:
 
 	int E_HP;
 
+
 	bool Enemy_DeadFlag;//敵死亡フラグ
 	bool Enemy_endflag;//敵クラス削除用フラグ
 
@@ -30,6 +31,8 @@ private:
 
 public:
 	int E_Width, E_Height;//画像幅　高さ
+
+
 	bool All();
 	void Move();
 	void Draw();

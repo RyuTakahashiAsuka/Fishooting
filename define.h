@@ -3,6 +3,7 @@
 //extern宣言でグローバルに
 extern char key[256];
 extern int Game_Count;
+extern int SceneCount;
 
 //メッセージボックス
 #define MSG(m) {\
@@ -20,7 +21,7 @@ extern int Game_Count;
 
 /*プレイヤー*/
 //プレイヤーのライフ初期値
-#define PLAYER_LIFE 5
+#define PLAYER_LIFE 1
 #define PLAYER_WORK_SPEED 6//プレイヤーの移動速度
 
 //プレイヤーの初期位置

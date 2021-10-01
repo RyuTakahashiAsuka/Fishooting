@@ -3,6 +3,7 @@
 
 char key[256];//キー取得用配列
 int Game_Count;//ゲームスタートから何ループしたか。
+int SceneCount;
 
 // プログラムは WinMain から始まります
 int WINAPI WinMain(HINSTANCE hInstance, HINSTANCE hPrevInstance, LPSTR lpCmdLine, int nCmdShow)

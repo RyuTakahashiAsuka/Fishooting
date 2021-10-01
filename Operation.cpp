@@ -1,10 +1,13 @@
 #include "pch.h"
 #include "Operation.h"
 
-
 OPERATION::OPERATION() {
 	back = new BACK;//背景クラス作成
 	player = new PLAYER;//プレイヤークラス生成
+
+	titleScene = new TitleScene;
+	GameOver = new GAMEOVER;
+	GameClear = new GAMECLEAR;
 
 	FILE* fp;
 	ENEMYDATA data[ENEMY_NUM];
@@ -13,8 +16,10 @@ OPERATION::OPERATION() {
 	int col = 1;
 	int row = 0;
 
+	EnemyNum = ENEMY_NUM;
 	memset(buf, 0, sizeof(buf));
 	fp = fopen("EnemyData.csv", "r");
+	SceneCount = 0;
 
 	//ヘッダ読み飛ばし
 	while (fgetc(fp) != '\n');
@@ -88,6 +93,10 @@ void OPERATION::CollisionAll() {
 					if (Collision(PSHOT_COLLISION, ENEMY1_COLLISION, px, ex, py, ey)) {
 						//当たっていれば、deadflagを立てる
 						enemy[s]->SetDeadFlag();
+						EnemyNum = EnemyNum - 1;
+						if (EnemyNum == 0) {
+							SceneCount = 3;
+						}
 						//当たった弾のフラグを戻す
 						player->SetShotFlag(i, false);
 					}
@@ -153,19 +162,35 @@ OPERATION::~OPERATION() {
 	}
 }
 void OPERATION::All() {
-	back->All();
-	player->All();//プレイヤークラスのAll関数実行
 
-	for (int i = 0; i < ENEMY_NUM; ++i) {
-		if (enemy[i] != NULL) {
-			if (enemy[i]->All()) {
-				delete enemy[i];
-				enemy[i] = NULL;
+
+	switch (SceneCount)
+	{
+	case 0:
+		titleScene->All();
+		break;
+	case 1:
+		back->All();
+		player->All();//プレイヤークラスのAll関数実行
+
+		for (int i = 0; i < ENEMY_NUM; ++i) {
+			if (enemy[i] != NULL) {
+				if (enemy[i]->All()) {
+					delete enemy[i];
+					enemy[i] = NULL;
+				}
 			}
 		}
+
+		CollisionAll();
+		++Game_Count;
+		break;
+	case 2:
+		GameOver->All();
+		break;
+	case 3:
+		GameClear->All();
+		break;
 	}
 
-	CollisionAll();
-
-	++Game_Count;
 }

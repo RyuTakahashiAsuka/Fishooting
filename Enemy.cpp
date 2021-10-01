@@ -117,6 +117,8 @@ void ENEMY::Draw() {
 		}
 	}
 
+	
+
 	if (!Enemy_DeadFlag) {
 		DrawGraph(x, y, EnemyImg[0], TRUE);
 	}
