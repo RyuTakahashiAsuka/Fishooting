@@ -23,6 +23,8 @@ void GAMECLEAR::Draw() {
 
 	DrawString((MapWidth - GameClearStringWidth) / 2, 200, "GAMECLEAR", GetColor(0, 0, 0));
 
+	DrawFormatString(170, 230, GetColor(0, 0, 0), "%dëÃåÇîjÅ@Ç®ÇﬂÇ≈Ç∆Ç§", BreakEnemyCount);
+
 	DrawBox(150, 400, 349, 480, GetColor(0, 0, 0), TRUE);
 	DrawString((MapWidth - EndStringWidth) / 2, 435, "ÉQÅ[ÉÄèIóπ", Col1);
 	DrawString(195, 500, "press Space", Col1);

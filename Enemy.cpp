@@ -25,6 +25,8 @@ ENEMY::ENEMY(int E_Type, int E_shot_Type, int E_Move_Pattern, int E_shot_Pattern
 
 	this->E_HP = E_HP;
 
+	breakEnemyPlus = false;
+
 	/*画像*/
 	if (E_Type == 0) {
 		LoadDivGraph("Img/Player/Player.png", 3, 3, 1, 50, 60, EnemyImg);
@@ -45,7 +47,6 @@ ENEMY::ENEMY(int E_Type, int E_shot_Type, int E_Move_Pattern, int E_shot_Pattern
 		E_shot[i].E_ShotSpeed = shotSpeed;
 		E_shot[i].E_ShotX = x;
 		E_shot[i].E_ShotY = y;
-		
 	}
 	
 	E_count = 0;
@@ -54,8 +55,8 @@ ENEMY::ENEMY(int E_Type, int E_shot_Type, int E_Move_Pattern, int E_shot_Pattern
 	Enemy_DeadFlag = false;
 	Enemy_endflag = false;
 	E_shotflag = false;
-	
 }
+
 void ENEMY::Shot() {
 	if (E_shot_Time == Game_Count) {
 		E_shotflag = true;
@@ -78,6 +79,7 @@ void ENEMY::Shot() {
 			break;
 		}
 	}
+
 		int s = 0;//フラグが立っている弾の数
 		//フラグが立っているだけ移動を行う
 		for (int i = 0; i < ENEMY_SHOT_NUM; ++i) {
@@ -104,7 +106,11 @@ void ENEMY::Move() {
 	else if (Game_Count > OutTime_E) {
 		y -= 2;
 		if (y < -40) {
-			Enemy_DeadFlag = true;
+			if (!breakEnemyPlus && !Enemy_DeadFlag) {
+				EnemyNum = EnemyNum - 1;
+				breakEnemyPlus = true;
+			}
+			SetDeadFlag();
 		}
 	}
 }
@@ -117,8 +123,6 @@ void ENEMY::Draw() {
 		}
 	}
 
-	
-
 	if (!Enemy_DeadFlag) {
 		DrawGraph(x, y, EnemyImg[0], TRUE);
 	}
@@ -129,6 +133,7 @@ void ENEMY::GetPosition(double* x, double* y)
 	*x = this->x;
 	*y = this->y;
 }
+
 bool ENEMY::GetShotPosition(int index, double* x, double* y)
 {
 	if (E_shot[index].E_NowShotFlag) {
@@ -160,6 +165,8 @@ bool ENEMY::All() {
 	Move();
 	Draw();
 	Shot();
+
+	DrawFormatString(10, 10, GetColor(0, 0, 0), "%d", EnemyNum);
 
 	E_count++;
 

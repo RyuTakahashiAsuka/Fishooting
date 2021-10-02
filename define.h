@@ -3,7 +3,10 @@
 //extern宣言でグローバルに
 extern char key[256];
 extern int Game_Count;
+
 extern int SceneCount;
+extern int EnemyNum;
+extern int BreakEnemyCount;
 
 //メッセージボックス
 #define MSG(m) {\

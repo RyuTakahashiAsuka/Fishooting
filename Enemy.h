@@ -19,6 +19,7 @@ private:
 	bool Enemy_DeadFlag;//敵死亡フラグ
 	bool Enemy_endflag;//敵クラス削除用フラグ
 
+	bool breakEnemyPlus;
 
 	/*弾*/
 	E_SHOT E_shot[ENEMY_SHOT_NUM];

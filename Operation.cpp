@@ -17,6 +17,8 @@ OPERATION::OPERATION() {
 	int row = 0;
 
 	EnemyNum = ENEMY_NUM;
+	BreakEnemyCount = 0;
+
 	memset(buf, 0, sizeof(buf));
 	fp = fopen("EnemyData.csv", "r");
 	SceneCount = 0;
@@ -94,9 +96,7 @@ void OPERATION::CollisionAll() {
 						//当たっていれば、deadflagを立てる
 						enemy[s]->SetDeadFlag();
 						EnemyNum = EnemyNum - 1;
-						if (EnemyNum == 0) {
-							SceneCount = 3;
-						}
+						BreakEnemyCount = BreakEnemyCount + 1;
 						//当たった弾のフラグを戻す
 						player->SetShotFlag(i, false);
 					}
@@ -104,6 +104,7 @@ void OPERATION::CollisionAll() {
 			}
 		}
 	}
+
 
 	//敵の弾と操作キャラとの当たり判定
 	//プレイヤーが生きてれば
@@ -122,6 +123,7 @@ void OPERATION::CollisionAll() {
 						if (tempflag) {
 							//操作キャラのdamageflagを立てる
 							player->SetDamageFlag();
+							
 							//弾を消す
 							enemy[i]->SetShotFlag(s, false);
 							//一時フラグを戻す
@@ -179,6 +181,14 @@ void OPERATION::All() {
 					delete enemy[i];
 					enemy[i] = NULL;
 				}
+			}
+		}
+		if (EnemyNum == 0) {
+			if (BreakEnemyCount == 0) {
+				SceneCount = 2;
+			}
+			else {
+				SceneCount = 3;
 			}
 		}
 
