@@ -2,7 +2,7 @@
 #include "BackGround.h"
 
 BACK::BACK() {
-	GameBackImg = LoadGraph("Img/Back/Main_BackGround.jpg");
+	GameBackImg = LoadGraph("Data/Img/Back/Main_BackGround.jpg");
 
 	x = y = 0;
 }

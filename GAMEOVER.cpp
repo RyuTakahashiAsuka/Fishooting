@@ -5,7 +5,7 @@ GAMEOVER::GAMEOVER() {
 	x = y = 0;
 	Col1 = GetColor(255, 255, 255);
 
-	BackGroundImg = LoadGraph("Img/Back/Over_BackGround.jpg");
+	BackGroundImg = LoadGraph("Data/Img/Back/Over_BackGround.jpg");
 
 
 	GameOverStringWidth = GetDrawStringWidth("GAMEOVER", -1);

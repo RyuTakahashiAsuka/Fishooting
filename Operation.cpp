@@ -20,7 +20,7 @@ OPERATION::OPERATION() {
 	BreakEnemyCount = 0;
 
 	memset(buf, 0, sizeof(buf));
-	fp = fopen("EnemyData.csv", "r");
+	fp = fopen("Data/EnemyData.csv", "r");
 	SceneCount = 0;
 
 	//ƒwƒbƒ_“Ç‚Ý”ò‚Î‚µ

@@ -5,7 +5,7 @@ GAMECLEAR::GAMECLEAR() {
 	x = y = 0;
 	Col1 = GetColor(255, 255, 255);
 
-	BackGroundImg = LoadGraph("Img/Back/Clear_BackGround.jpg");
+	BackGroundImg = LoadGraph("Data/Img/Back/Clear_BackGround.jpg");
 
 
 	GameClearStringWidth = GetDrawStringWidth("GAMECLEAR", -1);

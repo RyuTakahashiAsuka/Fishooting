@@ -3,7 +3,7 @@ class ENEMY
 {
 private:
 	double x, y;//座標
-	int EnemyImg[3];//画像格納配列
+	int EnemyImg;//画像格納配列
 	
 
 	int InTime_E, OutTime_E, StopTime_E;//敵の出現、消滅、停止のタイミング用

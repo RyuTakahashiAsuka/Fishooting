@@ -10,7 +10,7 @@ TitleScene::TitleScene() {
 	Col2 = GetColor(0, 0, 0);
 
 
-	TitleBackImg = LoadGraph("Img/Back/Main_BackGround.jpg");
+	TitleBackImg = LoadGraph("Data/Img/Back/Main_BackGround.jpg");
 
 	TitleStringWidth = GetDrawStringWidth("FISHOOTING", -1);
 	StartStringWidth = GetDrawStringWidth("ゲームスタート", -1);

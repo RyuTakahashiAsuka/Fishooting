@@ -4,7 +4,7 @@
 PLAYER::PLAYER() {
 	/*プレイヤー基礎*/
 	//画像読み込み
-	if (-1 == LoadDivGraph("Img/Player/Player.png", 3, 3, 1, 50, 60, PlayerImg)) {
+	if (-1 == LoadDivGraph("Data/Img/Player/Player.png", 3, 3, 1, 50, 60, PlayerImg)) {
 		MSG("エラー発生");
 	}
 	Width = 29, Height = 40;//画像幅
@@ -20,7 +20,7 @@ PLAYER::PLAYER() {
 	/*弾*/
 	memset(P_shot, 0, sizeof(P_shot));//初期化
 
-	int ShotImg = LoadGraph("Img/Player/Player_Shot.png");
+	int ShotImg = LoadGraph("Data/Img/Player/Player_Shot.png");
 	int width, height;
 	GetGraphSize(ShotImg, &width, &height);//画像サイズを調べ格納
 

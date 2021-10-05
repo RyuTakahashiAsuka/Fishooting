@@ -29,11 +29,11 @@ ENEMY::ENEMY(int E_Type, int E_shot_Type, int E_Move_Pattern, int E_shot_Pattern
 
 	/*‰æ‘œ*/
 	if (E_Type == 0) {
-		LoadDivGraph("Img/Player/Player.png", 3, 3, 1, 50, 60, EnemyImg);
+		EnemyImg =  LoadGraph("Data/Img/Enemy/WeakEnemyLeft.png");
 	}
 	int EShotImg;
 	if (E_shot_Type == 0) {
-		EShotImg = LoadGraph("Img/Enemy/enemyshot1.png");
+		EShotImg = LoadGraph("Data/Img/Enemy/enemyshot1.png");
 	}
 	int W, H;
 	GetGraphSize(EShotImg, &W, &H);
@@ -124,7 +124,7 @@ void ENEMY::Draw() {
 	}
 
 	if (!Enemy_DeadFlag) {
-		DrawGraph(x, y, EnemyImg[0], TRUE);
+		DrawGraph(x, y, EnemyImg, TRUE);
 	}
 }
 
@@ -165,8 +165,6 @@ bool ENEMY::All() {
 	Move();
 	Draw();
 	Shot();
-
-	DrawFormatString(10, 10, GetColor(0, 0, 0), "%d", EnemyNum);
 
 	E_count++;
 
